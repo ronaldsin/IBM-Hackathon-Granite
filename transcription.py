@@ -12,7 +12,7 @@ print("Testing API URL...")
 
 import requests
 
-API_URL = "https://us-south.ml.cloud.ibm.com/genai/v1/projects/7266e034-8bcc-40a5-a222-440243471013/speech-to-text"
+API_URL = ""
 
 try:
     r = requests.get(API_URL)
