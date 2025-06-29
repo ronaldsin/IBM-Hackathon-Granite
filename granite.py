@@ -5,6 +5,9 @@ import string
 
 import csv
 
+startdate = '2025-04-01'
+enddate = '2025-04-30' 
+
 data = []
 with open('data.csv', 'r') as csvfile: 
     reader = csv.reader(csvfile, skipinitialspace=True)
@@ -32,7 +35,7 @@ body = {
       "content": [
         {
           "type": "text",
-          "text": """
+          "text": f"""
 					please analyze trends in the data to predict the amount of er patients coming in each day each shift then please predict how much staff should be called in each shift to keep wait times close to ideal for the next one month after the end of the dataset in this format [Date Shift Predicted_Patients Day Suggested_Staff Predicted_Wait]
             		it is important to follow this mapping: monday = 0, tuesday = 1, wednesday = 2, thursday = 3, friday = 4, saturday = 5, sunday = 6
                     ideal wait time - 30min
@@ -46,8 +49,8 @@ body = {
                     staff refers to the amount of staff working that shift
                     wait refers to the average wait time in minutes
                     
-                    only predict for the next month '2025-04-01' to '2025-04-30' 
-                    '2025-04-01' starts on a tuesday = 1 so day would = 1
+                    only predict for the next month {startdate} to {enddate}
+                    for example '2025-04-01' starts on a tuesday = 1 so day would = 1
                     do not provide an explanation
                     only output the results table and nothing else: [[Date Shift Predicted_Patients Day Suggested_Staff Predicted_Wait]]
                     day should be outputed as a number: monday = 0, tuesday = 1, wednesday = 2, thursday = 3, friday = 4, saturday = 5, sunday = 6
