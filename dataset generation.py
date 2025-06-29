@@ -20,7 +20,7 @@ df["date"] = pd.to_datetime(df["date"])
 def generatepatients(mean, size):
     base = np.random.poisson(mean, size)
     modifier = np.where(
-        np.random.random(size) < 0.2,
+        np.random.random(size) < 0.4,
         np.random.choice([1.25, 0.75], size),
         1.0
     )
@@ -28,23 +28,23 @@ def generatepatients(mean, size):
 
 df["patients"] = np.where(
     df["shift"] == "AM",
-    generatepatients(32, len(df)),
-    generatepatients(42, len(df))
+    generatepatients(31, len(df)),
+    generatepatients(41, len(df))
 )
 
 def apply_busy_patterns(df):
     df["dayofweek"] = df["date"].dt.dayofweek
     df.loc[df["dayofweek"] == 0, "patients"] = (df.loc[df["dayofweek"] == 0, "patients"] * 1.25).astype(int)
-    df.loc[(df["dayofweek"] == 4) & (df["shift"] == "PM"), "patients"] = (df.loc[(df["dayofweek"] == 4) & (df["shift"] == "PM"), "patients"] * 1.3).astype(int)
-    df.loc[(df["dayofweek"] == 5) & (df["shift"] == "AM"), "patients"] = (df.loc[(df["dayofweek"] == 5) & (df["shift"] == "AM"), "patients"] * 1.4).astype(int)
+    df.loc[(df["dayofweek"] == 4) & (df["shift"] == "PM"), "patients"] = (df.loc[(df["dayofweek"] == 4) & (df["shift"] == "PM"), "patients"] * 1.6).astype(int)
+    df.loc[(df["dayofweek"] == 5) & (df["shift"] == "AM"), "patients"] = (df.loc[(df["dayofweek"] == 5) & (df["shift"] == "AM"), "patients"] * 1.7).astype(int)
     return df
 
 df = apply_busy_patterns(df)
 
 df["staff"] = np.where(
     df["shift"] == "AM",
-    generatepatients(11, len(df)),
-    generatepatients(13, len(df))
+    generatepatients(13.7, len(df)),
+    generatepatients(15.7, len(df))
 )
 
 crisis = (df["date"] >= pd.to_datetime(crisisstart)) & \
