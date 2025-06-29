@@ -1,7 +1,5 @@
 import os
 import requests
-from transformers import AutoTokenizer
-import string
 
 import csv
 
